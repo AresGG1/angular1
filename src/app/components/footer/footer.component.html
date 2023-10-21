@@ -1,0 +1,19 @@
+<footer class="fixed bottom-0 bg-gray-100 p-4 text-center w-full">
+
+
+<ul class="list-none flex justify-center">
+    <li *ngFor="let item of menuItems" (click)="itemClick(item)"
+        [ngClass]="{'active': item.active}">
+      <a href="#"
+         [ngClass]="{'bg-blue-500 text-white': item.active}"
+         class="text-gray-700 p-2"
+         [ngStyle]="{'padding-left': item.active ? '20px' : '10px', 'padding-right': item.active ? '20px' : '10px'}">
+        {{ item.label }}
+      </a>
+    </li>
+  </ul>
+
+
+
+  <p class="text-gray-600 mt-4">&copy; 2023 Bulba. All rights reserved.</p>
+</footer>

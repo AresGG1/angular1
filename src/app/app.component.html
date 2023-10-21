@@ -1,0 +1,87 @@
+<app-header [user]="user" (onClickImage)="triggerImageClick()"></app-header>
+
+<app-left-nav-bar (onItemClick)="toggleItem($event)" [menuItems]="menuItems"></app-left-nav-bar>
+
+<div *ngIf="isImageActive" class="flex justify-center items-center">
+
+  <div class="text-red-500 text-36">Hello world !</div>
+</div>
+
+
+<div class="flex justify-center items-center mb-24">
+  <div class=" flex flex-col">
+
+    <div *ngIf="isList; else cardView">
+    <ng-container *ngFor="let product of products">
+      <ng-container *ngIf="product.isInStock">
+
+          <div class="w-96 bg-white p-6 rounded-lg shadow-lg mb-4" (click)="showCard(product)">
+            <div class="text-gray-600 text-sm text-center mb-2">{{ product.id }}</div>
+            <div class="text-2xl font-semibold text-center mb-2">{{ product.name }}</div>
+
+            <ng-container [ngSwitch]="product.discount.isApplied">
+              <ng-container *ngSwitchCase="false">
+                <div class="text-600 text-xl text-center"
+                      [ngStyle]="{'color': getColor(product)}">{{ product.price }}</div>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="true">
+                <div class="text-600 text-x text-center line-through">{{ product.price }}</div>
+                <div class="text-600 text-xl text-center"
+                     [ngStyle]="{'color': getColor(product)}">{{ product.discount.discountedPrice }}</div>
+              </ng-container>
+
+
+            </ng-container>
+          </div>
+
+      </ng-container>
+
+    </ng-container>
+    </div>
+
+    <ng-template #cardView>
+      <ng-container *ngIf="activeProduct.discount.isApplied">
+        <div class="bg-blue-500 text-white p-4 rounded-md shadow-md">
+          This is discounted product
+        </div>
+      </ng-container>
+      <div class="bg-white p-16 rounded-lg shadow-lg" (click)="showList()">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="text-700 text-center text-2xl ">Id:</div>
+          <div class="text-700 text-center text-2xl">{{ activeProduct.id }}</div>
+
+          <div class="text-700 text-center text-2xl ">Name:</div>
+          <div class="text-700 text-center text-2xl">{{ activeProduct.name }}</div>
+          <ng-container [ngSwitch]="activeProduct.discount.isApplied">
+
+            <ng-container *ngSwitchCase="false">
+              <div class="text-700 text-center font-semibold text-2xl">Price</div>
+              <div class="text-700 text-center sfont-semibold text-2xl">{{ activeProduct.price }}</div>
+
+            </ng-container>
+
+            <ng-container *ngSwitchCase="true">
+              <div class="text-700 text-center text-2xl">Old price</div>
+              <div class="text-700 text-center text-2xl">{{ activeProduct.price }}</div>
+
+              <div class="text-700 text-center text-2xl font-semibold">New price</div>
+              <div class="text-700 text-center text-2xl font-semibold text-yellow-700">
+                {{ activeProduct.discount.discountedPrice }}
+              </div>
+            </ng-container>
+
+
+          </ng-container>
+
+        </div>
+      </div>
+
+    </ng-template>
+
+  </div>
+
+
+</div>
+
+<app-footer [menuItems]="menuItems" (onItemClick)="toggleItem($event)" ></app-footer>

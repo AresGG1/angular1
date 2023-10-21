@@ -1,0 +1,16 @@
+<header class="bg-blue-600 p-4 flex justify-between items-center">
+  <div class="flex items-center">
+    <img (click)="onClick()" ngSrc="../../../assets/images/Apple_Computer_Logo_rainbow.svg.png" alt="Site Logo" class="h-10 w-10 mr-2"
+         height="1024" width="879">
+    <h1 class="text-white text-xl font-semibold">Bulba</h1>
+  </div>
+
+  <div class="flex items-center">
+    <div class="mr-4">
+      <img src="{{ user.image }}" alt="User Avatar" class="h-10 w-10 rounded-full">
+    </div>
+    <div>
+      <h2 class="text-white text-sm font-semibold">{{ user.firstName }}</h2>
+    </div>
+  </div>
+</header>
